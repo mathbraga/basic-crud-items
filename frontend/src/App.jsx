@@ -14,7 +14,7 @@ const [message, setMessage] = useState({});
       <div>
         {
           Object.entries(message).map(
-            item => <div key={item[0]}>{`${JSON.stringify(item)}`}</div>
+            item => <div key={item[0]}>{`${JSON.stringify(item[1]['sku'])}`}</div>
           )
         }
       </div>

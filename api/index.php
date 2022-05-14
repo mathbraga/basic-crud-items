@@ -12,18 +12,18 @@ $dbChannel = $database->getChannel();
 $products = new Products($dbChannel);
 $productsList = $products->getProductsList();
 
-$response = array();
-$index = 0;
-foreach($productsList as $productEntry){
-    $newEntry = [
-        'sku' => $productEntry['sku'],
-        'name' => $productEntry['name'],
-        'price' => $productEntry['price'],
-        'type_id' => $productEntry['type_id'],
-        'type_attribute' => $productEntry['type_attribute']
-    ];
-    array_push($response, $newEntry);
-}
+// $response = array();
+// $index = 0;
+// foreach($productsList as $productEntry){
+//     $newEntry = [
+//         'sku' => $productEntry['sku'],
+//         'name' => $productEntry['name'],
+//         'price' => $productEntry['price'],
+//         'type_id' => $productEntry['type_id'],
+//         'type_attribute' => $productEntry['type_attribute']
+//     ];
+//     array_push($response, $newEntry);
+// }
 
 header('Content-type: application/json;');
-echo json_encode($response);
+echo json_encode($productsList);
