@@ -1,8 +1,10 @@
 <?php
+
+
 class Products{
     private $channel;
     
-    function __construct($channel){
+    public function __construct($channel){
         $this->channel = $channel;
     }
 
@@ -13,7 +15,7 @@ class Products{
         return $resultRows;
     }
 
-    function getProductsList(){
+    public function getProductsList(){
         $query = "SELECT * from products_list";
         $rows = $this->executeQuery($query);
         return $rows;
