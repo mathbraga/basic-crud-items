@@ -13,11 +13,11 @@ const Routes = () => {
     return(
         <Router>
             <Routing>
-                <Route path="/Products" exact element={<Products />} />
-                <Route path="/NewProduct" exact element={<NewProduct />} />
+                <Route path="/" exact element={<Products />} />
+                <Route path="/add-product" exact element={<NewProduct />} />
                 <Route 
                     path="*"
-                    element={<Navigate to="/Products" replace />}
+                    element={<Navigate to="/" replace />}
                 />
             </Routing>
         </Router>

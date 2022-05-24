@@ -9,5 +9,8 @@ export default {
             src: '.*',
             dest: '/index.html',
         }
+    ],
+    plugins: [
+        '@snowpack/plugin-sass'
     ]
 };
