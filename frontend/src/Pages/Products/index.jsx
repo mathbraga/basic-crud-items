@@ -5,10 +5,7 @@ import PageFooter from "../../components/PageFooter";
 import PageContent from "../../components/PageContent";
 import PageContainer from "../../containers/PageContainer/PageContainer";
 import ProductCard from "../../components/ProductCard";
-import { 
-    AddButton,
-    DeleteButton
-} from "../../components/Buttons/";
+import Button from "../../components/Buttons";
 import { Link } from "react-router-dom";
 
 const data = [
@@ -49,9 +46,9 @@ const Products = () => {
         <PageContainer>
             <PageHeader title={"Product List"}>
                 <Link to="/add-product">
-                    <AddButton />
+                    <Button buttonText="ADD" className="btn-primary" />
                 </Link>
-                <DeleteButton />
+                <Button id="delete-product-btn" buttonText="MASS DELETE" className="btn-danger" />
             </PageHeader>
             <PageContent>
                 {data.map((item, index) => <ProductCard key={index} {...item} />)}
