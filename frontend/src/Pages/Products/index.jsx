@@ -12,36 +12,41 @@ const data = [
     {
         'sku': 'DVD-001',
         'name': 'Fake DVD',
-        'price': '2.00 $',
-        'attribute': 'Size: 256 Kg'
+        'price': 2,
+        'type_id': 1,
+        'attribute': '256'
     },
     {
-        'sku': 'DVD-001',
-        'name': 'Fake DVD',
-        'price': '2.00 $',
-        'attribute': 'Size: 256 Kg'
+        'sku': 'Book-006',
+        'name': 'Unreal Book',
+        'price': 9,
+        'type_id': 2,
+        'attribute': '7'
     },
     {
-        'sku': 'DVD-001',
-        'name': 'Fake DVD',
-        'price': '2.00 $',
-        'attribute': 'Size: 256 Kg'
-    },
-    {
-        'sku': 'DVD-001',
-        'name': 'Fake DVD',
-        'price': '2.00 $',
-        'attribute': 'Size: 256 Kg'
-    },
-    {
-        'sku': 'DVD-001',
-        'name': 'Fake DVD',
-        'price': '2.00 $',
-        'attribute': 'Size: 256 Kg'
+        'sku': 'Furniture-002',
+        'name': 'Not Real Furniture',
+        'price': 55,
+        'type_id': 3,
+        'attribute': '25x40x10'
     },
 ]
 
 const Products = () => {
+    const checked = {};
+
+    const handleCheckbox = (index, sku) => {
+        if(checked[index])
+            delete checked[index];
+        else
+            checked[index] = sku;
+    }
+
+    const handleClick = () => {
+        let toBeDeleted = Object.values(checked);
+        console.log(toBeDeleted);
+    }
+
     return(
         <PageContainer>
             <PageHeader title="Product List">
@@ -50,12 +55,19 @@ const Products = () => {
                         {"ADD"}
                     </Button>
                 </Link>
-                <Button btnId="delete-product-btn" className="btn-danger">
+                <Button btnId="delete-product-btn" className="btn-danger" onClick={handleClick}>
                     {"MASS DELETE"}
                 </Button>
             </PageHeader>
             <PageContent>
-                {data.map((item, index) => <ProductCard key={index} {...item} />)}
+                {data.map((item, index) =>
+                    <ProductCard 
+                        key={index}
+                        {...item}
+                        className="delete-checkbox"
+                        onChange={() => handleCheckbox(index, item["sku"])}
+                    />
+                )}
             </PageContent>
             <PageFooter />
         </PageContainer>

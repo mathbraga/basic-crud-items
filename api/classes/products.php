@@ -6,34 +6,34 @@ include_once 'Database.php';
 
 class Products extends Assets{
     private $database;
-    private $newSKU;
-    private $newName;
-    private $newPrice;
-    private $newType;
-    private $newAttribute;
+    private $SKU;
+    private $name;
+    private $price;
+    private $type;
+    private $attribute;
 
     public function __construct(){
         $this->database = new Database();
     }
 
-    public function setNewId($newId){
-        $this->newSKU = $newId;
+    public function setId($id){
+        $this->SKU = $id;
     }
 
-    public function setNewName($newName){
-        $this->newName = $newName;
+    public function setName($name){
+        $this->name = $name;
     }
 
-    public function setNewPrice($newPrice){
-        $this->newPrice = $newPrice;
+    public function setPrice($price){
+        $this->price = $price;
     }
 
-    public function setNewType($newType){
-        $this->newType = $newType;
+    public function setType($type){
+        $this->type = $type;
     }
 
-    public function setNewAttribute($newAttribute){
-        $this->newAttribute = $newAttribute;
+    public function setAttribute($attribute){
+        $this->attribute = $attribute;
     }
 
     public function getAll(){
@@ -54,12 +54,27 @@ class Products extends Assets{
                         :type_attribute
                     )';
         $queryParams = [
-            'sku' => $this->newSKU,
-            'name' => $this->newName,
-            'price' => $this->newPrice,
-            'type_id' => $this->newType,
-            'type_attribute' => $this->newAttribute
+            'sku' => $this->SKU,
+            'name' => $this->name,
+            'price' => $this->price,
+            'type_id' => $this->type,
+            'type_attribute' => $this->attribute
         ];
         $result = $this->database->executeQuery($query, $queryParams);
+    }
+
+    public function deleteById(){
+        $query = 'DELETE FROM products_list WHERE sku = :sku';
+        $queryParams = [
+            'sku' => $this->SKU
+        ];
+        $result = $this->database->executeQuery($query, $queryParams);
+    }
+
+    public function deleteMultiple($idList){
+        foreach($idList as $id){
+            $this->setId($id);
+            $this->deleteById();
+        }
     }
 }

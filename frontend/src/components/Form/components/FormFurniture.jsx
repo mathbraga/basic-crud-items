@@ -27,7 +27,7 @@ export const FormFurniture = () => {
                     <input id={lenghtId} type="number" className="form-control"/>
                 </div>
             </div>
-            <span className="description">Please, provide dimension in HxWxL format</span>
+            <span className="description">Please, provide dimensions in HxWxL format</span>
         </div>
     )
 }
