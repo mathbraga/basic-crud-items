@@ -8,24 +8,22 @@ import Form from "../../components/Form";
 import { FormSubmitButton } from "../../components/Form/components";
 import { Link, useNavigate } from "react-router-dom";
 import encodeDataToSend from "../../utils/encodeDataToSend";
+import performRequest from "../../utils/performRequest";
+import { newProductUrl as addProductUrl } from "../../utils/urls";
 
 const NewProduct = () => {
     const formId = "product_form";
-    const newProductUrl = "http://localhost:8000/resource/newProduct.php";
     const navigateTo = useNavigate();
 
     const sendData = (data) => {
+        const newProductUrl = addProductUrl;
         const encodedData = encodeDataToSend(data);
-        const requestHeaders = new Headers();
-        requestHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-        const requestObject = {
-            method: 'POST',
-            headers: requestHeaders,
-            body: encodedData
+        const method = "POST";
+        const requestHeaders = {
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
-        const requestUrl = new Request(newProductUrl);
-        
-        fetch(requestUrl, requestObject)
+
+        performRequest(newProductUrl, method, requestHeaders, encodedData)
             .then(r => navigateTo('/'));
     }
 

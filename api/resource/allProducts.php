@@ -1,6 +1,9 @@
 <?php
 
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+
 include_once '../classes/Products.php';
 include_once '../classes/ResponseManager.php';
 

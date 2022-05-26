@@ -5,8 +5,8 @@ import "./styles.sass";
 const ProductCard = (props) => {
     const { className, onChange } = props;
 
-    const { sku, name, price, type_id, attribute } = props;
-    const priceDecimal = price.toFixed(2);
+    const { sku, name, price, type_id, type_attribute } = props;
+    const priceDecimal = parseInt(price).toFixed(2);
     const attributePicker = {1: "Size:", 2: "Weight:", 3: "Dimensions:"};
     const metricPicker = {1: "MB", 2: "KG", 3: ""};
 
@@ -16,7 +16,7 @@ const ProductCard = (props) => {
             <div>{sku}</div>
             <div>{name}</div>
             <div>{`${priceDecimal} $`}</div>
-            <div>{`${attributePicker[type_id]} ${attribute} ${metricPicker[type_id]}`}</div>
+            <div>{`${attributePicker[type_id]} ${type_attribute} ${metricPicker[type_id]}`}</div>
         </div>
     );
 }

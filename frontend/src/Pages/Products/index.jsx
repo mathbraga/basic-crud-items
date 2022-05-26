@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import PageHeader from "../../components/PageHeader";
 import PageFooter from "../../components/PageFooter";
@@ -7,33 +7,16 @@ import PageContainer from "../../containers/PageContainer/PageContainer";
 import ProductCard from "../../components/ProductCard";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
-
-const data = [
-    {
-        'sku': 'DVD-001',
-        'name': 'Fake DVD',
-        'price': 2,
-        'type_id': 1,
-        'attribute': '256'
-    },
-    {
-        'sku': 'Book-006',
-        'name': 'Unreal Book',
-        'price': 9,
-        'type_id': 2,
-        'attribute': '7'
-    },
-    {
-        'sku': 'Furniture-002',
-        'name': 'Not Real Furniture',
-        'price': 55,
-        'type_id': 3,
-        'attribute': '25x40x10'
-    },
-]
+import performRequest from "../../utils/performRequest";
+import { 
+    allProductsUrl as productsUrl,
+    massDeleteUrl
+} from "../../utils/urls";
+import encodeDataToSend from "../../utils/encodeDataToSend";
 
 const Products = () => {
     const checked = {};
+    const [products, setProducts] = useState([]);
 
     const handleCheckbox = (index, sku) => {
         if(checked[index])
@@ -42,10 +25,28 @@ const Products = () => {
             checked[index] = sku;
     }
 
-    const handleClick = () => {
-        let toBeDeleted = Object.values(checked);
-        console.log(toBeDeleted);
+    const handleMassDelete = () => {
+        const checkedLength = Object.keys(checked).length;
+        if(checkedLength > 0){
+            const toBeDeleted = {'idList': JSON.stringify(Object.values(checked))};
+            const requestUrl = massDeleteUrl;
+            const method = "POST";
+            const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            };
+            const encodedData = encodeDataToSend(toBeDeleted);
+            performRequest(requestUrl, method, headers, encodedData)
+                .then(r => location.reload());
+        }
     }
+
+    useEffect(() => {
+        let method = "GET";
+        let requestUrl = productsUrl;
+        performRequest(requestUrl, method)
+            .then(response => response.json())
+            .then(jsonResponse => setProducts(jsonResponse));
+    }, [])
 
     return(
         <PageContainer>
@@ -55,12 +56,12 @@ const Products = () => {
                         {"ADD"}
                     </Button>
                 </Link>
-                <Button btnId="delete-product-btn" className="btn-danger" onClick={handleClick}>
+                <Button btnId="delete-product-btn" className="btn-danger" onClick={handleMassDelete}>
                     {"MASS DELETE"}
                 </Button>
             </PageHeader>
             <PageContent>
-                {data.map((item, index) =>
+                {products.map((item, index) =>
                     <ProductCard 
                         key={index}
                         {...item}
