@@ -9,7 +9,7 @@ const Button = (props) => {
         <button 
             id={btnId}
             type="button"
-            className={`btn btn-primary header-btn ${className}`}
+            className={`btn header-btn ${className}`}
             onClick={onClick}
         >
             {children}
