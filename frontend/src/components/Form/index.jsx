@@ -6,7 +6,7 @@ import { FormFurniture } from "./components";
 import "./styles.sass";
 
 const Form = (props) => {
-    const { formId } = props;
+    const { formId, submitData } = props;
     const inputRowClass = "row mb-3";
     const skuId = "sku";
     const nameId = "name";
@@ -72,12 +72,9 @@ const Form = (props) => {
         event.preventDefault();
         let fragmentString = returnFragmentData()
         let fragmentKey = {'attribute': fragmentString};
-        setFormData(currentData => ({
-            ...currentData,
-            ...fragmentKey
-        }));
+        let dataToSubmit = {...formData, ...fragmentKey};
 
-        console.log(formData);
+        submitData(dataToSubmit);
     }
 
     return(

@@ -1,13 +1,16 @@
 <?php
 
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+
 include_once '../classes/Products.php';
 
 $products = new Products();
 
-$products->setNewId($_POST['sku']);
-$products->setNewName($_POST['name']);
-$products->setNewPrice($_POST['price']);
-$products->setNewType($_POST['type']);
-$products->setNewAttribute($_POST['attribute']);
+$products->setId($_POST['sku']);
+$products->setName($_POST['name']);
+$products->setPrice($_POST['price']);
+$products->setType($_POST['productType']);
+$products->setAttribute($_POST['attribute']);
 $products->addNew();

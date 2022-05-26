@@ -6,10 +6,28 @@ import PageContainer from "../../containers/PageContainer/PageContainer";
 import Button from "../../components/Button";
 import Form from "../../components/Form";
 import { FormSubmitButton } from "../../components/Form/components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import encodeDataToSend from "../../utils/encodeDataToSend";
 
 const NewProduct = () => {
     const formId = "product_form";
+    const newProductUrl = "http://localhost:8000/resource/newProduct.php";
+    const navigateTo = useNavigate();
+
+    const sendData = (data) => {
+        const encodedData = encodeDataToSend(data);
+        const requestHeaders = new Headers();
+        requestHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+        const requestObject = {
+            method: 'POST',
+            headers: requestHeaders,
+            body: encodedData
+        }
+        const requestUrl = new Request(newProductUrl);
+        
+        fetch(requestUrl, requestObject)
+            .then(r => navigateTo('/'));
+    }
 
     return(
         <PageContainer>
@@ -21,7 +39,7 @@ const NewProduct = () => {
                     </Button>
                 </Link>
             </PageHeader>
-            <Form formId={formId} />
+            <Form formId={formId} submitData={sendData} />
             <PageFooter />
         </PageContainer>
     );
