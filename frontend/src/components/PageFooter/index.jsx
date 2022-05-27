@@ -4,7 +4,6 @@ import "./styles.sass";
 
 const PageFooter = () => {
     return(
-
         <div className="page-footer">Scandiweb Test assignment</div>
     );
 }

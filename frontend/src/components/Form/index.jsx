@@ -1,103 +1,67 @@
 import React, { useRef, useState } from "react";
 
-import { FormDVD } from "./components";
-import { FormBook } from "./components";
-import { FormFurniture } from "./components";
+import { FormInput, FormFragment } from "./components";
+import { selectFragment } from "./formUtils";
+
 import "./styles.sass";
 
 const Form = (props) => {
     const { formId, submitData } = props;
-    const inputRowClass = "row mb-3";
     const skuId = "sku";
     const nameId = "name";
     const priceId = "price";
     const typeId = "productType";
 
-    const [formData, setFormData] = useState({});
-    const [fragmentData, setFragmentData] = useState("");
-    const [formFragment, setFragment] = useState(null);
-    const heightRef = useRef(null);
-    const widthRef = useRef(null);
-    const lengthRef = useRef(null);
+    const [fragmentProps, setFragmentProps] = useState({});
 
-    const updateFormData = (event) => {
-        let newData = {};
-        newData[event.target.id] = event.target.value;
-        setFormData(currentData => ({
-            ...currentData,
-            ...newData
-        }));
-    }
+    const clearFragmentInputs = () => {
+        const fragment = document.getElementById("form-fragment");
+        const fragmentInputs = [...fragment.getElementsByTagName("input")];
 
-    const handleInput = (event) => {
-        updateFormData(event);
-    }
-
-    const handleFragmentInput = (event) => {
-        setFragmentData(event.target.value);
-    }
-
-    const fragmentComponent = (selected, inputHandler) => {
-        let components = [
-            "",
-            <FormDVD onChange={inputHandler} />,
-            <FormBook onChange={inputHandler} />,
-            <FormFurniture heightRef={heightRef} widthRef={widthRef} lengthRef={lengthRef} />
-        ];
-        let selection = components[selected];
-
-        return selection;
+        fragmentInputs.map(item => item.value = "");
     }
 
     const handleSelect = (event) => {
-        updateFormData(event);
-        setFragmentData("");
-        setFragment(fragmentComponent(event.target.value, handleFragmentInput));
+        let props = selectFragment(event.target.value);
+
+        setFragmentProps(props);
+        clearFragmentInputs();
     }
 
-    const buildFurnitureString = () => {
-        let height = heightRef.current.value;
-        let width = widthRef.current.value;
-        let length = lengthRef.current.value;
-        let fullDimension = `${height}x${width}x${length}`;
+    const buildAttributeString = (inputs) => {
+        const inputsData = [];
+        let attributeString = "";
 
-        return fullDimension;
-    }
-
-    const returnFragmentData = () => {
-        return fragmentData || buildFurnitureString();
+        inputs.map(item => {
+            inputsData.push(item.value);
+        });
+        attributeString = inputsData.join("x");
+        
+        return attributeString;
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        let fragmentString = returnFragmentData()
-        let fragmentKey = {'attribute': fragmentString};
-        let dataToSubmit = {...formData, ...fragmentKey};
+        const fragment = document.getElementById("form-fragment");
+        const fragmentInputs = [...fragment.getElementsByTagName("input")];
+        const attributeString = buildAttributeString(fragmentInputs);
+        const dataToSubmit = {
+            "sku": document.getElementById(skuId).value,
+            "name": document.getElementById(nameId).value,
+            "price": document.getElementById(priceId).value,
+            "productType": document.getElementById(typeId).value,
+            "attribute": attributeString
+        }
 
         submitData(dataToSubmit);
     }
 
     return(
         <form id={formId} className="mt-3" onSubmit={handleSubmit}>
-            <div className={inputRowClass}>
-                <label htmlFor={skuId} className="col-1 col-form-label">SKU</label>
-                <div className="col-sm-3">
-                    <input id={skuId} type="text" className="form-control" required onChange={handleInput} />
-                </div>
-            </div>
-            <div className={inputRowClass}>
-                <label htmlFor={nameId} className="col-1 col-form-label">Name</label>
-                <div className="col-sm-3">
-                    <input id={nameId} type="text" className="form-control" required onChange={handleInput} />
-                </div>
-            </div>
-            <div className={inputRowClass}>
-                <label htmlFor={priceId} className="col-1 col-form-label">Price ($)</label>
-                <div className="col-sm-3">
-                    <input id={priceId} type="number" className="form-control" required onChange={handleInput} />
-                </div>
-            </div>
-            <div className={inputRowClass}>
+            <FormInput id={skuId} label={"SKU"} type="text" />
+            <FormInput id={nameId} label={"Name"} type="text" />
+            <FormInput id={priceId} label={"Price ($)"} type="number" step=".01" />
+            <div className="row mb-3">
                 <label htmlFor={typeId} className="col-2 col-form-label">Type Switcher</label>
                 <div className="col-sm-2">
                     <select id={typeId} className="form-select" onChange={handleSelect} required>
@@ -108,7 +72,7 @@ const Form = (props) => {
                     </select>
                 </div>
             </div>
-            <div>{formFragment}</div>
+            <FormFragment id="form-fragment" {...fragmentProps} />
         </form>
     );
 }
