@@ -4,13 +4,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
-require '../classes/Products.php';
+require '../classes/RequestManager.php';
 
-$products = new Products();
-
-$products->setId($_POST['sku']);
-$products->setName($_POST['name']);
-$products->setPrice($_POST['price']);
-$products->setType($_POST['productType']);
-$products->setAttribute($_POST['attribute']);
-$products->addNew();
+$requestManager = new RequestManager();
+$requestManager->addNewProduct();

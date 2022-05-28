@@ -11,7 +11,7 @@ const ProductCard = (props) => {
 
     return(
         <div className="product-card">
-            <input type="checkbox" className={className} onChange={onChange} />
+            <input type="checkbox" className={`form-check-input ${className}`} onChange={onChange} />
             <div>{sku}</div>
             <div>{name}</div>
             <div>{`${price} $`}</div>

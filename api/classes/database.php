@@ -43,6 +43,7 @@ class Database{
 
         if($this->channelReceiver->errorInfo()[2]){
             http_response_code(500);
+            exit();
         }
 
         return $result;
