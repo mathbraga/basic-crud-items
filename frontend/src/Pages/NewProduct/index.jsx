@@ -24,7 +24,12 @@ const NewProduct = () => {
         }
 
         performRequest(newProductUrl, method, requestHeaders, encodedData)
-            .then(r => navigateTo('/'));
+            .then(response => {
+                if(!response.ok)
+                    throw new Error("Server error!");
+                
+                navigateTo('/');
+            });
     }
 
     return(

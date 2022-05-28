@@ -11,31 +11,36 @@ export const selectFragment = (typeId) => {
     const fragmentType = {
         "dvd": {
             inputs: [{
-                inputId: "size",
-                label: "Size (MB)"
+                id: "size",
+                label: "Size (MB)",
+                type: "number"
             }],
             notification: "Please, provide disc space in MB"
         },
         "book": {
             inputs: [{
-                inputId: "weight",
-                label: "Weight (KG)"
+                id: "weight",
+                label: "Weight (KG)",
+                type: "number"
             }],
             notification: "Please, provide book weight in KG"
         },
         "furniture": {
             inputs: [
                 {
-                    inputId: "height",
-                    label: "Height (CM)"
+                    id: "height",
+                    label: "Height (CM)",
+                    type: "number"
                 },
                 {
-                    inputId: "width",
-                    label: "Width (CM)"
+                    id: "width",
+                    label: "Width (CM)",
+                    type: "number"
                 },
                 {
-                    inputId: "length",
-                    label: "Length (CM)"
+                    id: "length",
+                    label: "Length (CM)",
+                    type: "number"
                 }
             ],
             notification: "Please, provide dimensions in HxWxL format"

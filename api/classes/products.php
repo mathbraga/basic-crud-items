@@ -1,8 +1,8 @@
 <?php
 
 
-include_once '../abstracts/Assets.php';
-include_once 'Database.php';
+require '../abstracts/Assets.php';
+require 'Database.php';
 
 class Products extends Assets{
     private $database;

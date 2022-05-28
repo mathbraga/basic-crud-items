@@ -4,7 +4,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
-include_once '../classes/Products.php';
+require '../classes/Products.php';
 
 $products = new Products();
 $data = $_POST['idList'];

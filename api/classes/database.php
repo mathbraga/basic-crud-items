@@ -41,11 +41,10 @@ class Database{
         $this->channelReceiver->execute($binds);
         $result = $this->channelReceiver->fetchAll(PDO::FETCH_OBJ);
 
-        // if($this->channelReceiver->errorInfo()[2]){
-        //     http_response_code(500);
-        //     echo json_encode(["Query error" => $this->channelReceiver->errorInfo()[2]]);
-        // }
-        // else
+        if($this->channelReceiver->errorInfo()[2]){
+            http_response_code(500);
+        }
+
         return $result;
     }
 }

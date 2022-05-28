@@ -44,7 +44,12 @@ const Products = () => {
         let method = "GET";
         let requestUrl = productsUrl;
         performRequest(requestUrl, method)
-            .then(response => response.json())
+            .then(response => {
+                if(!response.ok)
+                    throw new Error("Server error!");
+                
+                return response.json()
+            })
             .then(jsonResponse => setProducts(jsonResponse));
     }, [])
 

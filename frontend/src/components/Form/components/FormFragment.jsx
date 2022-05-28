@@ -1,4 +1,5 @@
 import React from "react";
+import { FormInput } from "./FormInput";
 
 import "./styles.sass";
 
@@ -9,11 +10,8 @@ export const FormFragment = (props) => {
         <div id={id}>
             {
                 inputs.map((item, index) => (
-                    <div className="row mb-3" key={index}>
-                        <label htmlFor={item.inputId} className="col-2 col-form-label">{item.label}</label>
-                        <div className="col-sm-2">
-                            <input id={item.inputId} type="number" className="form-control" required />
-                        </div>
+                    <div key={index}>
+                        <FormInput {...item} />
                     </div>
                 ))
             }
