@@ -30,7 +30,9 @@ class Database{
                 $this->password
             );
         }catch(PDOException $exception){
+            http_response_code(500);
             echo "Database Error: $exception->getMessage()";
+            exit();
         }
     }
 
