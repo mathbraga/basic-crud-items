@@ -15,20 +15,21 @@ import {
 import encodeDataToSend from "../../utils/encodeDataToSend";
 
 const Products = () => {
-    const checked = {};
     const [products, setProducts] = useState([]);
 
-    const handleCheckbox = (index, sku) => {
-        if(checked[index])
-            delete checked[index];
-        else
-            checked[index] = sku;
+    const getCheckedItems = () => {
+        const checkboxElements = [...document.getElementsByClassName('delete-checkbox')];
+        const checkedItems = checkboxElements.filter(item => item.checked);
+        const checkedSKUs = checkedItems.map(item => item.parentElement.children['product-sku'].textContent);
+
+        return checkedSKUs;
     }
 
     const handleMassDelete = () => {
-        const checkedLength = Object.keys(checked).length;
-        if(checkedLength > 0){
-            const toBeDeleted = {'idList': JSON.stringify(Object.values(checked))};
+        const checkedItems = getCheckedItems();
+
+        if(checkedItems.length > 0){
+            const toBeDeleted = {'idList': JSON.stringify(Object.values(checkedItems))};
             const requestUrl = massDeleteUrl;
             const method = "POST";
             const headers = {
@@ -36,7 +37,7 @@ const Products = () => {
             };
             const encodedData = encodeDataToSend(toBeDeleted);
             performRequest(requestUrl, method, headers, encodedData)
-                .then(r => location.reload());
+                .then(r => document.location.reload());
         }
     }
 
@@ -71,7 +72,6 @@ const Products = () => {
                         key={index}
                         {...item}
                         className="delete-checkbox"
-                        onChange={() => handleCheckbox(index, item["sku"])}
                     />
                 )}
             </PageContent>

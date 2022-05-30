@@ -3,7 +3,7 @@ import React from "react";
 import "./styles.sass";
 
 const ProductCard = (props) => {
-    const { className, onChange } = props;
+    const { className } = props;
 
     const { sku, name, price, type_id, type_attribute } = props;
     const attributePicker = {1: "Size:", 2: "Weight:", 3: "Dimensions:"};
@@ -11,8 +11,8 @@ const ProductCard = (props) => {
 
     return(
         <div className="product-card">
-            <input type="checkbox" className={`form-check-input ${className}`} onChange={onChange} />
-            <div>{sku}</div>
+            <input type="checkbox" className={`form-check-input ${className}`} />
+            <div id="product-sku">{sku}</div>
             <div>{name}</div>
             <div>{`${price} $`}</div>
             <div>{`${attributePicker[type_id]} ${type_attribute} ${metricPicker[type_id]}`}</div>
