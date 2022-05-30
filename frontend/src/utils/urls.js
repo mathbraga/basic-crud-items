@@ -1,3 +1,3 @@
-export const newProductUrl = "http://localhost:8000/resource/newProduct.php";
-export const allProductsUrl = "http://localhost:8000/resource/allProducts.php";
-export const massDeleteUrl = "http://localhost:8000/resource/massDelete.php";
+export const newProductUrl = "https://scandiplatform.000webhostapp.com/resource/newProduct.php";
+export const allProductsUrl = "https://scandiplatform.000webhostapp.com/resource/allProducts.php";
+export const massDeleteUrl = "https://scandiplatform.000webhostapp.com/resource/massDelete.php";

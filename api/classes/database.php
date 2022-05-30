@@ -3,13 +3,9 @@
 
 class Database{
     private $hostname = 'localhost';
-    private $dbname = 'devdb';
-    // private $dbname = 'id18948548_scandi';
-    private $port = '3306';
-    private $username = 'root';
-    // private $username;
-    private $password = '1234';
-    // private $password;
+    private $dbname;
+    private $username;
+    private $password;
     private $channel;
     private $channelReceiver;
 
@@ -18,10 +14,10 @@ class Database{
     }
 
     private function prepareChannel(){
-        $dbParameter = "mysql:host={$this->hostname};port={$this->port};dbname={$this->dbname}";
-        // $dbParameter = "mysql:host={$this->hostname};dbname={$this->dbname}";
-        // $this->username = $_SERVER['username'];
-        // $this->password = $_SERVER['password'];
+        $this->dbname = $_SERVER['dbname'];
+        $this->username = $_SERVER['username'];
+        $this->password = $_SERVER['password'];
+        $dbParameter = "mysql:host={$this->hostname};dbname={$this->dbname}";
 
         try{
             $this->channel = new PDO(
@@ -36,7 +32,7 @@ class Database{
         }
     }
 
-    // $binds param is needed for queries containing external variables
+    // $binds is needed to associate variables to specific strings in query string
     public function executeQuery($query, $binds = []){
         $this->channelReceiver = $this->channel->prepare($query);
 
