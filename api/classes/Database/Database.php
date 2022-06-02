@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../classes/Managers/ResponseManager.php';
+require_once '../Managers/ResponseManager.php';
 
 class Database{
     private $hostname = 'localhost';
