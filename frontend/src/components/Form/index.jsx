@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FormInput, FormFragment } from "./components";
 import { selectFragment } from "./formUtils";
@@ -6,7 +6,7 @@ import { selectFragment } from "./formUtils";
 import "./styles.sass";
 
 const Form = (props) => {
-    const { formId, submitData } = props;
+    const { formId, submitData, idError } = props;
     const skuId = "sku";
     const nameId = "name";
     const priceId = "price";
@@ -58,7 +58,13 @@ const Form = (props) => {
 
     return(
         <form id={formId} className="mt-3" onSubmit={handleSubmit}>
-            <FormInput id={skuId} label={"SKU"} type="text" />
+            <FormInput id={skuId} label="SKU" type="text"/>
+            {
+                idError && 
+                    <div className="error-message">
+                        SKU already exists, please provide a different one.
+                    </div>
+            }
             <FormInput id={nameId} label={"Name"} type="text" />
             <FormInput id={priceId} label={"Price ($)"} type="number" step=".01" />
             <div className="row mb-3">

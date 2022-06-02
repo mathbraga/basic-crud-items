@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PageHeader from "../../components/PageHeader";
 import PageFooter from "../../components/PageFooter";
@@ -14,6 +14,7 @@ import { newProductUrl as addProductUrl } from "../../utils/urls";
 const NewProduct = () => {
     const formId = "product_form";
     const navigateTo = useNavigate();
+    const [error, setError] = useState(false);
 
     const sendData = (data) => {
         const newProductUrl = addProductUrl;
@@ -26,9 +27,14 @@ const NewProduct = () => {
         performRequest(newProductUrl, method, requestHeaders, encodedData)
             .then(response => {
                 if(!response.ok)
-                    throw new Error("Server error!");
-                
-                navigateTo('/');
+                    return response.json();
+            })
+            .then(response => {
+                if(response){
+                    response["errorCode"] && setError(true);
+                }
+                else
+                    navigateTo('/');
             });
     }
 
@@ -42,7 +48,7 @@ const NewProduct = () => {
                     </Button>
                 </Link>
             </PageHeader>
-            <Form formId={formId} submitData={sendData} />
+            <Form formId={formId} submitData={sendData} idError={error} />
             <PageFooter />
         </PageContainer>
     );

@@ -1,6 +1,8 @@
 <?php
 
 
+require_once '../classes/Managers/ResponseManager.php';
+
 class Database{
     private $hostname = 'localhost';
     private $dbname = 'devdb';
@@ -45,6 +47,8 @@ class Database{
         $result = $this->channelReceiver->fetchAll(PDO::FETCH_OBJ);
 
         if($this->channelReceiver->errorInfo()[2]){
+            $response = new ResponseManager();
+            $response->sendJSON(['errorCode' => $this->channelReceiver->errorInfo()[1]]);
             http_response_code(500);
             exit();
         }
