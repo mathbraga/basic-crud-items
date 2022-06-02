@@ -20,7 +20,6 @@ class RequestManager{
         $product->setId($_POST['sku']);
         $product->setName($_POST['name']);
         $product->setPrice($_POST['price']);
-        $product->setType($_POST['productType']);
         $product->setAttribute($_POST['attribute']);
         $productsManager->addNew($product);
     }

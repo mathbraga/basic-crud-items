@@ -8,6 +8,10 @@ class Book extends Product{
     use Attribute;
     private $weight;
 
+    public function __construct(){
+        $this->setType(2);
+    }
+
     public function setAttribute($weight){
         $this->weight = $weight;
     }

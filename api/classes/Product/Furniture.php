@@ -8,6 +8,10 @@ class Furniture extends Product{
     use Attribute;
     private $dimensions;
 
+    public function __construct(){
+        $this->setType(3);
+    }
+
     public function setAttribute($dimensions){
         $this->dimensions = $dimensions;
     }
