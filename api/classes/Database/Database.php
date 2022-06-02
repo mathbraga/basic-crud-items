@@ -5,13 +5,9 @@ require_once '../Managers/ResponseManager.php';
 
 class Database{
     private $hostname = 'localhost';
-    private $dbname = 'devdb';
-    // private $dbname = 'id18948548_scandi';
-    private $port = '3306';
-    private $username = 'root';
-    // private $username;
-    private $password = '1234';
-    // private $password;
+    private $dbname;
+    private $username;
+    private $password;
     private $channel;
     private $channelReceiver;
 
@@ -20,11 +16,10 @@ class Database{
     }
 
     private function prepareChannel(){
-        // $this->dbname = $_SERVER['dbname'];
-        // $this->username = $_SERVER['username'];
-        // $this->password = $_SERVER['password'];
-        // $dbParameter = "mysql:host={$this->hostname};dbname={$this->dbname}";
-        $dbParameter = "mysql:host={$this->hostname};port={$this->port};dbname={$this->dbname}";
+        $this->dbname = $_SERVER['dbname'];
+        $this->username = $_SERVER['username'];
+        $this->password = $_SERVER['password'];
+        $dbParameter = "mysql:host={$this->hostname};dbname={$this->dbname}";
 
         try{
             $this->channel = new PDO(
