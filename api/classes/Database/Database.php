@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../Managers/ResponseManager.php';
+require_once '../classes/Managers/ResponseManager.php';
 
 class Database{
     private $hostname = 'localhost';
@@ -43,8 +43,8 @@ class Database{
 
         if($this->channelReceiver->errorInfo()[2]){
             $response = new ResponseManager();
-            $response->sendJSON(['errorCode' => $this->channelReceiver->errorInfo()[1]]);
             http_response_code(500);
+            $response->sendJSON(['errorCode' => $this->channelReceiver->errorInfo()[1]]);
             exit();
         }
 

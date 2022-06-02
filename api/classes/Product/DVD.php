@@ -2,7 +2,7 @@
 
 
 require_once 'Superclasses/Product.php';
-require_once '../../abstracts/traits/Attribute.php';
+require_once '../abstracts/traits/Attribute.php';
 
 class DVD extends Product{
     use Attribute;

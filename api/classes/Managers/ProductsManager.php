@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../Database/Database.php';
+require_once '../classes/Database/Database.php';
 
 class ProductsManager{
     private $database;

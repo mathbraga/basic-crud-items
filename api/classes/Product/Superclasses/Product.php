@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../../../abstracts/classes/Assets.php';
+require_once '../abstracts/classes/Assets.php';
 
 class Product extends Assets{
     protected $SKU;

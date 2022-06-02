@@ -1,9 +1,9 @@
 <?php
 
 
-require_once '../Product/DVD.php';
-require_once '../Product/Book.php';
-require_once '../Product/Furniture.php';
+require_once '../classes/Product/DVD.php';
+require_once '../classes/Product/Book.php';
+require_once '../classes/Product/Furniture.php';
 
 class ProductMediator{
     private $productType;
