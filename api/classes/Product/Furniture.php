@@ -1,11 +1,9 @@
 <?php
 
 
-require_once 'Superclasses/Product.php';
-require_once '../abstracts/traits/Attribute.php';
+require_once '../abstracts/classes/Product.php';
 
 class Furniture extends Product{
-    use Attribute;
     private $dimensions;
 
     public function __construct(){

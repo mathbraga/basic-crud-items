@@ -1,11 +1,9 @@
 <?php
 
 
-require_once 'Superclasses/Product.php';
-require_once '../abstracts/traits/Attribute.php';
+require_once '../abstracts/classes/Product.php';
 
 class DVD extends Product{
-    use Attribute;
     private $size;
 
     public function __construct(){

@@ -1,11 +1,9 @@
 <?php
 
 
-require_once 'Superclasses/Product.php';
-require_once '../abstracts/traits/Attribute.php';
+require_once '../abstracts/classes/Product.php';
 
 class Book extends Product{
-    use Attribute;
     private $weight;
 
     public function __construct(){

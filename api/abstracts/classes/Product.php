@@ -1,9 +1,9 @@
 <?php
 
 
-require_once '../abstracts/classes/Assets.php';
+require_once '../abstracts/interfaces/IProduct.php';
 
-class Product extends Assets{
+abstract class Product implements IProduct{
     protected $SKU;
     protected $name;
     protected $price;
@@ -25,19 +25,19 @@ class Product extends Assets{
         $this->type = $type;
     }
 
-    public function getId(){
+    public function getId() : string{
         return $this->SKU;
     }
 
-    public function getName(){
+    public function getName()  : string{
         return $this->name;
     }
 
-    public function getPrice(){
+    public function getPrice() : string{
         return $this->price;
     }
 
-    public function getType(){
+    public function getType() : int{
         return $this->type;
     }
 }
